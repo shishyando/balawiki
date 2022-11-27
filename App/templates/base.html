@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}">
+    <title>Balawiki</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Balawiki - your wiki on every query!</div>
+    </header>
+    {% block main_part %} {% endblock %}
+    <footer>
+        <div class="left">
+            Проект Wiki в каждый дом!
+        </div>
+        <div class="right">
+                  (c) Бугор Егаев
+        </div>
+    </footer>
+</body>
+</html>

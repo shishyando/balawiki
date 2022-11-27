@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main_part %}
+    <div class="search">
+    <div class="search_title nice_text">
+        Найдется все!
+        </div>
+        <br>
+        <div class="search_line">
+            <form method=get>
+            <label for="site-search">
+            <input type="search" id="site-search" name="q" placeholder="Введи запрос здесь!">
+            <button>Search</button>
+                </label>
+                </form>
+        </div>
+    </div>
+{% endblock %}

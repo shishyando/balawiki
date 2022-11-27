@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block main_part %}
+<div class="main_page">
+    <div class="query">
+        Что же такое <b>{{ q }}</b>?
+    </div>
+    <br><hr><br>
+    <div class="texts">
+        {% for text in texts %}
+        <div class="text">
+            {{ text }}
+        </div>
+            <br>
+            <hr>
+            <br>
+        {% endfor %}
+    </div>
+    <br>
+    <div class="comments">
+        <div class="query">
+            Что говорят мудрецы о <b>{{ q }}</b>:
+        </div>
+    <br>
+    <br>
+        {% for comment in comments %}
+            <img class="avatar" src="https://directemployers.org/wp-content/uploads/2018/08/avatar-JaneDoe.jpg" style="border-radius: 100px;">
+        <div class="text" style="margin-left: 60px;">
+            {{ comment }}
+        </div>
+            <hr class="left_hr">
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
