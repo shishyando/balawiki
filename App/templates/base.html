@@ -7,7 +7,7 @@
 </head>
 <body>
     <header>
-        <div class="logo">Balawiki - your wiki on every query!</div>
+        <a class="logo" href= {{ url_for('wiki_search') }}>Balawiki - your wiki on every query!</a>
     </header>
     {% block main_part %} {% endblock %}
     <footer>

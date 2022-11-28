@@ -1,6 +1,5 @@
 header, footer {
     border: 2px #eee solid;
-    color: brown;
     text-align: center;
     padding: 10px;
 }
@@ -87,4 +86,9 @@ footer .right {
 .main_page .search_line {
     margin-top: 3%;
     margin-bottom: 3%;
+}
+
+header a {
+  text-decoration: none; /* no underline */
+    color: darksalmon;
 }
