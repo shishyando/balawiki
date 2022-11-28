@@ -18,6 +18,9 @@ def wiki_search():
 
 @app.route('/wiki/<q>')
 def wiki_show(q):
+    if 'q' in request.args.keys():
+        q = escape(request.args.get('q'))
+        return redirect(url_for('wiki_show', q=q))
     texts = get_text(q)
     comments = get_comments(q)
     return render_template('wiki.html', q=q, texts=texts, comments=comments)
