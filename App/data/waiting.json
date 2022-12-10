@@ -1,0 +1,18 @@
+{
+    "_data_type": "This is messages for waiting. Messages are changing every 10 seconds",
+    "_message": "!!!NOW IT IS NOT WORKING, CHANGE main.js!!!",
+    "waiting_messages": [
+        [
+            "Ищем мудрецов",
+            "Спрашиваем мудрецов",
+            "Анализируем мудрецов",
+            "Перезагружаем интернет",
+            "Перекладываем jsonы",
+            "Балабобим",
+            "Работаем",
+            "Правда работаем",
+            "Еще работаем",
+            "Решаем проблемы",
+            "Вызываем /viber"]
+    ]
+}

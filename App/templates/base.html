@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}">
+    <script src="{{url_for('static', filename='main.js')}}"></script>
     <title>Balawiki</title>
 </head>
 <body>
@@ -10,6 +11,9 @@
         <a class="logo" href= {{ url_for('wiki_search') }}>Balawiki - your wiki on every query!</a>
     </header>
     {% block main_part %} {% endblock %}
+    <div id="loading" class="nice_text loading center">
+    </div>
+    <br><br><br><br>
     <footer>
         <div class="left">
             Проект Wiki в каждый дом!
