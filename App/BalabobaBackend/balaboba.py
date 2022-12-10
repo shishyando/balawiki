@@ -1,5 +1,5 @@
 import time
-from helpers import *
+from BalabobaBackend.helpers import *
 
 
 def get_text(query):  # Короче хочу по абзацам текст
