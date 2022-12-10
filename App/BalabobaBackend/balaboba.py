@@ -1,8 +1,9 @@
 import time
 from BalabobaBackend.helpers import *
-
+from time import sleep
 
 def get_text(query):  # Короче хочу по абзацам текст
+    sleep(1)
     if query == 'тян':
         return ['Короче, тян — это не девушка, а просто женщина, которая, в отличие от девушки, не умеет готовить.',
                 'Короче, тян — это девушка, которая не хочет иметь с вами детей.',
