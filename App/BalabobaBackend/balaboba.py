@@ -4,6 +4,7 @@ from time import sleep
 
 def get_text(query):  # Короче хочу по абзацам текст
     sleep(1)
+    query = query.lower()
     if query == 'тян':
         return ['Короче, тян — это не девушка, а просто женщина, которая, в отличие от девушки, не умеет готовить.',
                 'Короче, тян — это девушка, которая не хочет иметь с вами детей.',
@@ -22,6 +23,7 @@ def get_text(query):  # Короче хочу по абзацам текст
 
 
 def get_comments(query):  # Короче хочу по абзацам народные мудрости
+    query = query.lower()
     if query == 'тян':
         return ['тян моего друга – всем тян. (т.е. рыба, которую ловят на удочку)',
                 'тян ищем, призываем, а тян все нет',
@@ -33,7 +35,7 @@ def get_comments(query):  # Короче хочу по абзацам народ
     old_comms = get_old_comms(query)  # [(comm_text, timestamp)]
     if need_new_response(old_comms, cur_time, 3600 * 10):
         new_comm = get_new_comm(query)
-        upd_comms = update(old_comms, new_comm)
+        upd_comms = update(old_comms, new_comm, cur_time)
         push_comms(query, upd_comms)
         return [e[0] for e in upd_comms]
     return [e[0] for e in old_comms]
