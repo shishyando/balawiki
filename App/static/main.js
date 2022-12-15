@@ -1,8 +1,9 @@
+var CHANGE_TIME = 5;
 function change_opacity(element, opacity, num) {
                 "use strict";
     setTimeout(function() {
         element.style.opacity = opacity;
-    }, 20 * num);
+    }, CHANGE_TIME / 2 * num * 10);
 }
 
 function replace_text(element, text) {
@@ -16,7 +17,7 @@ function replace_text(element, text) {
     var item = text[Math.floor(Math.random()*text.length)];
     setTimeout(function() {
         element.textContent = item;
-    }, 20 * num);
+    }, CHANGE_TIME / 2 * num * 10);
     for (; cur_opacity <= 1; cur_opacity += 0.01) {
         change_opacity(element, cur_opacity, num);
         num += 1;
@@ -42,5 +43,5 @@ function loading(){
             "Еще работаем...",
             "Решаем проблемы...",
             "Вызываем /viber..."];
-    setInterval(replace_text, 10 * 1000, load, messages);
+    setInterval(replace_text, CHANGE_TIME * 1000, load, messages);
 }
