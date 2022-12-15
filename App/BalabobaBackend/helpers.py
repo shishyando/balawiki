@@ -1,6 +1,20 @@
 import os
 import sqlite3
+import balaboba
 DATABASE = os.path.join(os.path.dirname(__file__), 'balawiki.db')
+BB_TEXT_TYPES = {
+    'WIKI_TEXT': balaboba._text_type.TextType(
+        number = 8, 
+        name = 'Короче, Википедия', 
+        description = 'Напишите какое-нибудь слово, а Балабоба даст этому определение'
+    ), 
+    'FOLK_WISDOM_TEXT': balaboba._text_type.TextType(
+        number = 11, 
+        name = 'Народные мудрости', 
+        description = 'Напишите что-нибудь и получите народную мудрость'
+    )
+} 
+
 # Замечание про датабазу, у меня она почему-то не хотела инициализироваться, после запуска кода создается пустой файл
 # пофиксил это так: в пайчарме вылезает после того как потрогал sql файл надпись, что, мол, подключите базу данных,
 # там выбираете data source from path и там выбираете файл с базой данных, после этого откроется консоль,
@@ -51,17 +65,14 @@ def push_comms(query, comms):
     db.commit()
 
 
-
 def get_new_wiki(query):
-    # balaboba api @bugor
-    # return string arnser for the query
-    return "hui"
+    bb = balaboba.Balaboba()
+    return bb.balaboba(query, BB_TEXT_TYPES['WIKI_TEXT'])
 
 
 def get_new_comm(query):
-    # balaboba api @bugor
-    # to zhe samoe no dlya narodnih mudrostey
-    return "eskere"
+    bb = balaboba.Balaboba()
+    return bb.balaboba(query, BB_TEXT_TYPES['FOLK_WISDOM_TEXT'])
 
 
 def update(old_responses, new_response, timestamp):
