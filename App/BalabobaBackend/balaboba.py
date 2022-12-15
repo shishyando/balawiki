@@ -4,13 +4,14 @@ from markupsafe import Markup
 from flask import url_for
 from BalabobaBackend.helpers import *
 from time import sleep
-LINK_MAX_LENGTH = 3
+WORDS_WITH_LINKS = 3
 MIN_SYBMOLS_IN_LINK_WORD = 5
-
+PROHIBITED_ENDINGS = ['й', 'я']
 
 # Проверяем, что слово подходящее для создания ссылки
 def check_word(word):
-    return word.isalpha() and len(word) >= MIN_SYBMOLS_IN_LINK_WORD
+    return word.isalpha() and len(word) >= MIN_SYBMOLS_IN_LINK_WORD and \
+           not word[-1] in PROHIBITED_ENDINGS
 
 
 # Добавляем к случайным наборам слов в тексте ссылку на запрос
@@ -19,25 +20,23 @@ def insert_link(text):
     if len(words) == 0:
         return text
     
-    link_start = random.randint(0, len(words) - 1) 
-    while link_start < len(words) and not check_word(words[link_start]):
-        link_start += 1
+    already_used_id = []
+    for i in range(WORDS_WITH_LINKS):
+        link_start = random.randint(0, len(words) - 1) 
+        while link_start < len(words) and not check_word(words[link_start]):
+            link_start += 1
 
-    link_words = []
-    for i in range(link_start, min(link_start + LINK_MAX_LENGTH, len(words))):
-        word = words[i]
-        if not check_word(word):
-            break
-        link_words.append(word)
+        if link_start in already_used_id or link_start == len(words):
+            continue
+        
+        already_used_id.append(link_start)
+        link_word = words[link_start]
+        words = words[:link_start] + words[link_start + 1:]
+        url_text = Markup('<a onclick="loading();" href="' + \
+                        url_for('wiki_show', q=link_word) + \
+                        '">' + link_word + '</a>')
+        words.insert(link_start, url_text)
     
-    words = words[:link_start] + words[link_start + len(link_words):]
-    if len(link_words) == 0:
-        return text
-
-    url_text = Markup('<a onclick="loading();" href="' + \
-                      url_for('wiki_show', q=' '.join(link_words)) + \
-                      '">' + ' '.join(link_words) + '</a>')
-    words.insert(link_start, url_text)
     return ' '.join(words) 
 
 
