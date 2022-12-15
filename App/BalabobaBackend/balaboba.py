@@ -1,6 +1,45 @@
 import time
+import random
+from markupsafe import Markup
+from flask import url_for
 from BalabobaBackend.helpers import *
 from time import sleep
+LINK_MAX_LENGTH = 3
+MIN_SYBMOLS_IN_LINK_WORD = 5
+
+
+# Проверяем, что слово подходящее для создания ссылки
+def check_word(word):
+    return word.isalpha() and len(word) >= MIN_SYBMOLS_IN_LINK_WORD
+
+
+# Добавляем к случайным наборам слов в тексте ссылку на запрос
+def insert_link(text):
+    words = text.split()
+    if len(words) == 0:
+        return text
+    
+    link_start = random.randint(0, len(words) - 1) 
+    while link_start < len(words) and not check_word(words[link_start]):
+        link_start += 1
+
+    link_words = []
+    for i in range(link_start, min(link_start + LINK_MAX_LENGTH, len(words))):
+        word = words[i]
+        if not check_word(word):
+            break
+        link_words.append(word)
+    
+    words = words[:link_start] + words[link_start + len(link_words):]
+    if len(link_words) == 0:
+        return text
+
+    url_text = Markup('<a onclick="loading();" href="' + \
+                      url_for('wiki_show', q=' '.join(link_words)) + \
+                      '">' + ' '.join(link_words) + '</a>')
+    words.insert(link_start, url_text)
+    return ' '.join(words) 
+
 
 def get_text(query):  # Короче хочу по абзацам текст
     sleep(1)
@@ -14,7 +53,7 @@ def get_text(query):  # Короче хочу по абзацам текст
     cur_time = int(time.time())
     old_wikis = get_old_wikis(query)  # [(wiki_text, timestamp)]
     if need_new_response(old_wikis, cur_time, 3600 * 24):
-        new_wiki = get_new_wiki(query)
+        new_wiki = insert_link(get_new_wiki(query))
         upd_wikis = update(old_wikis, new_wiki, cur_time)
         push_wikis(query, upd_wikis)
         # нужно возвращать текст с размеченными редиректами?
