@@ -16,7 +16,7 @@
     <div class="texts">
         {% for text in texts %}
         <div class="text">
-            {{ text }}
+            {{ text|safe }} {# All wiki queries go through manual escaping first #}
         </div>
             <br>
             <hr>
