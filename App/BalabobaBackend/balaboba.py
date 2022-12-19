@@ -1,9 +1,8 @@
-import time
 import random
+import time
 from markupsafe import Markup
 from flask import url_for
 from BalabobaBackend.helpers import *
-from time import sleep
 WORDS_WITH_LINKS = 3
 MIN_SYBMOLS_IN_LINK_WORD = 5
 PROHIBITED_ENDINGS = ['й', 'я']
@@ -13,6 +12,9 @@ def check_word(word):
     return word.isalpha() and len(word) >= MIN_SYBMOLS_IN_LINK_WORD and \
            not word[-1] in PROHIBITED_ENDINGS
 
+
+def get_img(query):
+    return get_img_link(query)
 
 # Добавляем к случайным наборам слов в тексте ссылку на запрос
 def insert_link(text):
@@ -41,7 +43,6 @@ def insert_link(text):
 
 
 def get_text(query):  # Короче хочу по абзацам текст
-    sleep(1)
     query = query.lower()
     if query == 'тян':
         return ['Короче, тян — это не девушка, а просто женщина, которая, в отличие от девушки, не умеет готовить.',
