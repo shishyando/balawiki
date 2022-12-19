@@ -1,7 +1,13 @@
 import os
 import sqlite3
 import balaboba
+from serpapi import GoogleSearch
 DATABASE = os.path.join(os.path.dirname(__file__), 'balawiki.db')
+SERP_API_SEARCH_PARAMS_BASE = { # Search API parameters
+  'engine': 'google',
+  'tbm': 'isch', # Search type: images
+  'api_key': '' 
+}
 BB_TEXT_TYPES = {
     'WIKI_TEXT': balaboba._text_type.TextType(
         number = 8, 
@@ -35,6 +41,16 @@ def get_old_wikis(query):
         lst.append((i[0], i[1]))
     print(lst)
     return lst
+
+
+def get_img_link(query):
+    search_parameters = SERP_API_SEARCH_PARAMS_BASE.copy()
+    search_parameters['q'] = query
+
+    search = GoogleSearch(search_parameters)
+    results = search.get_dict()
+    images_results = results['images_results']
+    return images_results[0]['original']
 
 
 def push_wikis(query, wikis):
