@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, escape, g
-from BalabobaBackend.balaboba import get_text, get_comments
-from BalabobaBackend.helpers import connect_db, get_old_wikis
+from BalabobaBackend.balaboba import *
+from BalabobaBackend.helpers import *
 import json
 
 app = Flask(__name__)
@@ -47,7 +47,8 @@ def wiki_show(q):
         return redirect(url_for('wiki_show', q=q))
     texts = get_text(q)
     comments = get_comments(q)
-    return render_template('wiki.html', q=q, texts=texts, comments=comments)
+    img_url = get_img(q)
+    return render_template('wiki.html', q=q, texts=texts, comments=comments, img_url=img_url)
 
 
 @app.route('/loading_texts')
